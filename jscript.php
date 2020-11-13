@@ -13,7 +13,6 @@
 <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.16/sorting/custom-data-source/dom-checkbox.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.16/sorting/custom-data-source/dom-text.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/plug-ins/1.10.16/sorting/natural.js"></script>
-<script type="text/javascript" src="js/papaparse.min.js"></script>
 <script type="text/javascript" src="js/moment.min.js"></script>
 <script type="text/javascript" src="js/datetime-moment.js"></script>
 <script type="text/javascript" src="assets/js/libs/inputmask/jquery.inputmask.bundle.min.js"></script>
