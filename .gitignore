@@ -1,0 +1,10 @@
+.DS_Store
+._*
+connection.php
+config.php
+*.tmp.*
+config.js
+*.tmp.php
+*.new.*
+*.old.*
+
