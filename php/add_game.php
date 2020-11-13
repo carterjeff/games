@@ -1,11 +1,12 @@
 <?php
-	include 'cononection.php';
+	include 'connection.php';
 	include 'auth.php';
 
 	$object = array();
 
 	// build list of params accepted
 	$params = ['publisher','name','nickname','rating'];
+	$ratings = ['meh','favorite','dislike'];
 
 	// loop through verifying they are sent, and clean inputs for sql query
 	foreach ($params as $key => $value) {
@@ -20,6 +21,12 @@
 
   // break out the requst
   extract($_REQUEST);
+
+  // verify the rating is within the correct 3
+  if (!in_array($rating, $ratings)){
+  	$response['content'] = "Please select a valid rating type.";
+  	echo json_encode($response);
+  }
 
   // init transaction
   $m->autocommit(FALSE);
@@ -46,7 +53,7 @@
   $m->commit();
 
   // new game id is insert it, might not be used
-  $game_id = $m->insert_id);
+  $game_id = $m->insert_id;
 
 	// success response
 	$response['content'] = 'Game successfully added';

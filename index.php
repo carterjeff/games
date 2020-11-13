@@ -31,7 +31,7 @@
 										<div class="col-sm-12">
 											<div class="form-group no-padding no-margin flex">
 												<!-- <div class="search-game"><i class="fa fa-search"></i></div> -->
-												<input type="text" id="search" class="form-control" placeholder="Search game" autocomplete="off" />
+												<input type="text" id="search" class="form-control" placeholder="Search games" autocomplete="off" />
 												<button type="submit" class="btn btn-icon-toggle ink-reaction game-search" id="search-game"><i class="fa fa-search"></i></button>
 											</div>
 										</div>
@@ -43,18 +43,26 @@
 								</div>
 							</div>
 							<div class="card-body default-card-body">
-								<div class="new-table-container">
+								<div class="new-table-container hide">
 									<div>
-										<table class="table-gane stripe" cellspacing="0" cellpadding='0'  width="100%" id="game-table">
+										<table class="table-game table-striped table-bordered display" cellspacing="0" cellpadding='0' width="100%" id="game-table">
 											<thead>
 												<tr>
-													<th>Publisher</th>
-													<th>Name</th>
-													<th>Nickname</th>
-													<th>Rating</th>
+													<th>PUBLISHER</th>
+													<th>NAME</th>
+													<th>NICKNAME</th>
+													<th>RATING</th>
 												</tr>
 											</thead>
 											<tbody class="game-tbody"></tbody>
+											<tfoot>
+												<tr>
+						            	<th></th>
+													<th></th>
+													<th></th>
+													<th></th>
+						            </tr>
+											</tfoot>
 										</table>
 									</div>
 								</div>	
@@ -67,7 +75,7 @@
 
 		<!-- add game modal -->
 		<div class="modal fade modal-primary filter-container" id="addGameModal" role="dialog" aria-labelledby="formModalLabel" aria-hidden="true">
-			<div class="modal-dialog modal-lg">
+			<div class="modal-dialog">
 				<div class="modal-content">
 					<div class="modal-header">
 						<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
@@ -112,9 +120,8 @@
 							</div>							
 						</div>
 						<div class="modal-footer">
-							<button type="button" class="btn btn-default btn-danger ink-reaction action-btn cancel-btn" data-dismiss="modal">Cancel</button>
-							<button type="button" class="btn action-btn clear-btn btn-info ink-reaction">CLEAR</button>
-							<button type="submit" class="btn btn-primary submit-btn create ink-reaction" id="add-game-submit">Submit</button>
+							<button type="button" class="btn btn-default btn-danger ink-reaction action-btn cancel-btn pull-left" data-dismiss="modal">Cancel</button>
+							<button type="submit" class="btn btn-primary submit-btn create ink-reaction" id="add-game-submit">Create Game</button>
 						</div>				
 					</form>
 				</div>
@@ -123,8 +130,7 @@
 
 		<?php require_once 'jscript.php'; ?>
 		<script type="text/javascript">			
-			session_token = '<?php echo $token; ?>';
-			console.log(session_token);
+			session_token = '<?php echo $token; ?>';			
 			load_btn = $('.loading-btn');
 			
 			$(document).ready(function(){				
@@ -165,6 +171,11 @@
 				// });
 			});
 
+			function clearForm(){
+				$('.add-input').val('');
+				$('#rating-select').val(-1).trigger('change');
+			}
+
 			function indexFns(){
 				// init the select2
 				$('#rating-select').select2({
@@ -172,21 +183,17 @@
 					placeholder:"Please select a rating",
 				})
 
-				$(document).on('click','.clear-btn',function(){
-					$('.add-input').val('');
-					$('#rating-select').val(-1).trigger('change');
-				});
-
 				// clear the inputs just in case
-				$(document).on('click','.add-button',function(){
-					$('.add-input').val('');
-					$('#rating-select').val(-1).trigger('change');
-				});
+				$(document).on('click','.clear-btn, .add-button',function(){
+					clearForm();
+				});				
 
 				// submit the new game add
 				$(document).on('submit','#add-game-form',function(e){
 					e.preventDefault();
-					var form = preBuild(); // init the form
+
+					// init the form
+					var form = preBuild(); 
 
 					// loop through inputs to build the request form
 					$('.add-input').each(function(){
@@ -196,8 +203,6 @@
 						form.append(field,val);
 					});
 
-					debug(form);
-
 					// init ajax call
 					let promise = ajaxCall(form,'add_game.php');
 			    promise.then(function(data) {
@@ -206,12 +211,13 @@
 			      } else {
 			      	// if successful
 			        successMessage("Game added.");
-			        $('.add-input').val('');
-			        $('#rating-select').val(-1).trigger('change');
+			        // clear form
+			        clearForm();
 			      }
 			    })
 				})
 
+				// trigger the search if they hit enter
 				$(document).on('keypress','#search',function(e){
 					var key = e.keyCode;					
 					if (key == 13){
@@ -219,15 +225,25 @@
 					}					
 				})
 
+				// search gmes
 				$(document).on('click','#search-game',function(){
 					var query = $('#search').val();
+
+					// validate they entered something in the search input
 					if (query.length == 0 || query == ''){
 						warningMessage('Please enter a valid query');
 						return;
 					}
+
+					// limit searches to 3 characters or more - to avoid crazy search results
+					if (query.length < 3){
+						warningMessage('Please search with at least 3 characters');
+						return;	
+					}
 					var form = preBuild();
 					form.append('query',query);
 					
+					$('.new-table-container').removeClass('hide');
 					// init ajax call
 					let promise = ajaxCall(form,'search.php');
 			    promise.then(function(data) {
@@ -240,9 +256,13 @@
 			        	data:dc,
 			        	responsive:true,
 								destroy:true,
-								info:false,
-								// searching:false,
-								paging:false,
+								// info:false,
+								searching:true,
+								// paging:true,
+								deferRender:    true,
+		            scrollY:        200,
+		            scrollCollapse: true,
+		            scroller:       true,
 								columns:[
 									{
 										"data":"publisher",
@@ -256,7 +276,30 @@
 									{
 										"data":"rating",
 									},									
-								]
+								],
+								initComplete: function () {
+			            this.api().columns().every( function (i) {
+			            	if (i == 3){				            	
+			                var column = this;
+			                var select = $('<select class="tfoot-select"><option value="">Filter By:</option></select>')
+		                    .appendTo( $(column.footer()).empty() )
+		                    .on( 'change', function () {
+	                        var val = $.fn.dataTable.util.escapeRegex(
+	                          $(this).val()
+	                        );
+	 
+	                        column
+	                          .search( val ? '^'+val+'$' : '', true, false )
+	                          .draw();
+		                    });
+			                column.data().unique().sort().each( function ( d, j ) {
+			                	if (d != ''){
+		                    	select.append( '<option value="'+d+'">'+d+'</option>' )			                		
+			                	}
+			                });			            		
+			            	}
+			            });
+				        }
 			        })
 			      }
 			    })

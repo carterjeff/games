@@ -13,56 +13,27 @@ input:focus{
 form{
 	margin:0px;
 }
-.ui-datepicker-calendar tr th{
-	color:#888888;
-}
+
 #base{
   padding-left: 0px;
-}
-
-.ui-datepicker-inline.ui-datepicker.ui-widget.ui-widget-content.ui-helper-clearfix{
-	width:15.6em;
-}
-.ui-autocomplete{
-	width:264px;
-	height: 300px;
-	overflow-y:auto;
-	background-color: white;
-	border: 1px solid #c4c4c4;
-	color: #888888;
-	font-size: 14px;
-}
-.ui-autocomplete.timesheet{
-	width: 139px;
 }
 
 .default-table thead tr, .default-table{
   border-bottom: none !important;
 }
-.default-table thead tr th{
-  height: 20px;
-  border-bottom: none;
-  background-color: #a9a7a7;
-  color: white;
-}
-table.dataTable tbody td {
-  font-size: 14px;
-  font-family: helvetica;
-  font-weight: initial;
-}
-table thead th tr, table thead th, table tbody td, table tfoot td, table tfoot th, .form-table thead tr th, .form-table tr td{
-  padding: 8px 10px !important;
+
+table thead th, table tfoot tr th {
+  padding-left: 8px !important;
 }
 
 /* background pattern light */
 .headerbar, .btn.btn-primary.main-btn, .btn-primary.transfer-page, button.ink-reaction.btn.btn-flat.btn-sm.btn-default-dark.each-form-btn.btn-primary, button.ink-reaction.btn.btn-flat.btn-sm.btn-default-dark.each-form-btn.btn-primary:hover, .filter-label.no-bg, .dropdown.open a.dropdown-toggle.ink-reaction.profile-a, #timesheet-table thead tr th, #menubar.menubar-inverse:before, button#prev-btn, .saved-timesheets-convert, .card-head.style-primary.card-head-sm {
   background: #303030 url(../images/pattern-light-grey.png) 0 0;
 }
-/* .card-head style-primary card-head-sm */
+
 .headerbar {
   color: white;
 }
-
 
 .header-nav .header-nav-brand .brand-holder {
   display: table-cell;
@@ -75,26 +46,10 @@ table thead th tr, table thead th, table tbody td, table tfoot td, table tfoot t
   top: -20px;
   float: left;
 }
-
-span.text-lg.text-bold.text-primary.login-text-bold {
-  float: right;
-  position: relative;
-  bottom: -5px;
+select.tfoot-select {
+  width: 100%;
 }
-button.update-timberline.ready.loading-btn.btn.btn-info.btn-block.btn-loading-state {
-  position: absolute;
-  left: 0;
-  right: -30px;
-  margin: auto;
-  top: 7px;
-  width: 200px;
-}
-button.update-timberline.ready.loading-btn.btn.btn-info.btn-block.btn-loading-state.disabled, button.update-timberline.ready.loading-btn.btn.btn-info.btn-block.btn-loading-state {
-  opacity: 1;
-  border-color: #e6e5e5;
-  color: #e6e5e5;
-}
-button.map-loading-btn.ready.loading-btn, button.apn-loading-btn.ready.other-loading-btn {
+button.map-loading-btn.ready.loading-btn {
   display: none; 
   position: absolute;
   left: 0;
@@ -108,58 +63,6 @@ button.map-loading-btn.ready.loading-btn, button.apn-loading-btn.ready.other-loa
 }
 .uppercase{
   text-transform: uppercase;
-}
-.search-body-content{
-  overflow: auto;
-  max-height: calc(100% - 80px);
-  height: calc(100% - 80px);
-}
-.card-body.tab-content.style-default-bright.search-body-content {
-  padding-left: 0px;
-  text-indent: 10px;
-  padding-top: 0px;
-}
-.search-results-inner {
-  width: 80%;
-  height: 70%;  
-  top: 128px;
-  position: fixed;
-  left: 0;
-  right: 0;
-  margin: auto;
-}
-.search-results-div{
-  position: absolute;
-  z-index: 1005;
-  left: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  max-width: 100%;
-  display: none;
-}
-.search-modal-backdrop{
-  background: black;
-  opacity: .5;
-  position: fixed;
-  height: 100% !important;
-  width: 100% !important;
-}
-.search-body-content{
-  overflow: auto;
-  max-height: calc(100% - 80px);
-  height: calc(100% - 80px);
-}
-.search-li.active a {
-  color: #585354 !important;
-}
-.search-li.active a{
-  border-right: 2px solid#a8cf38 !important;
-}
-.search-result-row {
-  text-indent: 10px;
-  cursor: pointer;
 }
 .loading-btn.btn.btn-info.btn-transparent.btn-block.btn-loading-state {
   z-index: 1051;
@@ -175,6 +78,7 @@ button.map-loading-btn.ready.loading-btn, button.apn-loading-btn.ready.other-loa
   display: none;
   font-weight: 600;
 }
+
 
 label.select-label {
   width: 100%;
@@ -216,5 +120,15 @@ button.btn.btn-icon-toggle.ink-reaction.game-search {
 
   .form-group.fg-other {
     margin-bottom: 40px;
+  }
+  .card-body.default-card-body {
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+}
+@media (max-width: 320px) {
+  section {
+    padding-left: 0px;
+    padding-right: 0px;
   }
 }

@@ -13,7 +13,8 @@
 	foreach ($params as $key => $value) {
 	  if(!isset($_REQUEST[$value])){
 	    $response['content'] = 'Missing '.$value.' set.';
-	    log_and_respond($response);
+	    echo json_encode($response);exit;
+	    // log_and_respond($response);
 	  }
 	  $_REQUEST[$value] = cleanInput($_REQUEST[$value]);
 	}
@@ -24,7 +25,8 @@
 	if (strlen($query) < 2){
 		$response['content'] = $info;
 		$response['status'] = "OK";
-		log_and_respond($response);
+		echo json_encode($response);exit;
+		// log_and_respond($response);
 	}
 
 	// query to search through games
