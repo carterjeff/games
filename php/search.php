@@ -33,6 +33,7 @@
   $sql = "SELECT `id`,`publisher`,`name`,`nickname`,`rating` FROM `games` WHERE `name` LIKE '%$query%' OR `publisher` LIKE '%$query%' OR `nickname` LIKE '%$query%' ORDER BY `name` ASC";
   $res = $m->query($sql);  
   while ($e = $res->fetch_assoc()){
+  	$e['rating'] = ucwords($e['rating']);
 		// build output array
   // 	$info[] = array(
   // 		'id'=>$e['id'],

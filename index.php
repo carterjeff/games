@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Carte's Games~</title>
+		<title>Carter's Games~</title>
 		<!-- BEGIN META -->
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">		
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<meta name="keywords" content="your,keywords">
+		<meta name="keywords" content="carter, games">
 		<meta name="description" content="Games!">
 		<?php require_once('css.php'); ?>
 	</head>
@@ -134,41 +134,7 @@
 			load_btn = $('.loading-btn');
 			
 			$(document).ready(function(){				
-				indexFns();
-				// $('#search').autocomplete({
-				// 	minLength:2,
-				// 	source: function (req, resp){
-				// 		$.ajax({
-				// 			url: "php/search.php",
-				// 			data: 
-				// 			{ 								
-				// 				token: session_token,								
-				// 				query: $('#search').val()
-				// 			},
-				// 			dataType:'json',
-				// 			type:'POST',
-				// 			success:function(data){								
-				// 				resp(data.content);								
-				// 			}
-				// 		});
-				// 	},
-				// 	// appendTo:'.form-group.employee',
-				// 	select:function(e,ui){
-				// 		if (!ui.item){
-				// 			$('#search').val('').removeAttr('eid');
-				// 		}
-						
-				// 		$('#search').val(ui.item.label);
-
-				// 		console.log(ui);
-				// 		return false;
-				// 	},
-				// 	change: function(ev, ui){
-				// 		if (!ui.item){
-				// 			$('#search').val('').removeAttr('eid');							
-				// 		}
-				// 	}
-				// });
+				indexFns();			
 			});
 
 			function clearForm(){
@@ -209,6 +175,7 @@
 			      if (data.status == 'NO') { // check for no response
 		          errorMessage(data.content);
 			      } else {
+			      	$('#addGameModal').modal('toggle');
 			      	// if successful
 			        successMessage("Game added.");
 			        // clear form

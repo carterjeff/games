@@ -3,10 +3,10 @@
 	include 'auth.php';
 
 	$object = array();
+	$ratings = ['meh','favorite','dislike'];
 
 	// build list of params accepted
 	$params = ['publisher','name','nickname','rating'];
-	$ratings = ['meh','favorite','dislike'];
 
 	// loop through verifying they are sent, and clean inputs for sql query
 	foreach ($params as $key => $value) {
@@ -26,6 +26,14 @@
   if (!in_array($rating, $ratings)){
   	$response['content'] = "Please select a valid rating type.";
   	echo json_encode($response);
+  }
+
+  // check if publisher/name already exists
+  $sql = "SELECT * FROM `games` WHERE `name` = '$name' AND `published` = '$publisher'";
+  $res = $m->query($sql);
+  if ($res->num_rows > 0){
+  	$response['content'] = 'Game with same Publisher/Name already taken. Please try another';
+  	echo json_encode($response);exit;
   }
 
   // init transaction
