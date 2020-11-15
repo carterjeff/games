@@ -9,20 +9,20 @@ There are two tables:
 `games`
 	This has the fields you requested in the docx. `id`,`publisher`,`name`,`nickname`, and ENUM `rating`. I have included a `created_at` as well, just for general logging.
 `log`
-	This table is to help log requests and responses, this is to help in any debugging needs that come along. It holds the uri being requested, the user (usually more useful if there is a login type situation), `ip_address`, `user_agent` (to help me know if it's web, ios, or android hitting the end point), the `request` (this is what is being sent to the service), the response (in the beginning of a new project, I like to save both success and NO responses - but as we get through UAT, I will typically only log failures), and the timestamp.
+	This table is to help log requests and responses, this is to help in any debugging needs that come along. It holds the `uri` being requested, the `user` (usually more useful if there is a login type situation), `ip_address`, `user_agent` (to help me know if it's web, ios, or android hitting the end point), the `request` (this is what is being sent to the service), the response (in the beginning of a new project, I like to save both success and NO responses - but as we get through UAT, I will typically only log failures), and the `timestamp`.
 
 The repo includes two sample files:
-php/connection.sample.php
-js/config.sample.js
+`php/connection.sample.php`
+`js/config.sample.js`
 
 You will take the connection.sample.php and save off a new 'connection.php';
 This will hold the mysql connection info and any other variables that don't change often and can live in a connection file.
-Typically any info for emailers are stored here, an include for the 'php_fns.php' file which will hold any PHP functions that would be reused throughout the backend, and other reused variables.
+Typically any info for emailers are stored here, an include for the `php/php_fns.php` file which will hold any PHP functions that would be reused throughout the backend, and other reused variables.
 
-The config.js file where I usually hold the 'debug' function which helps me console.log the Form being sent to the backend for quicker debugging.
+The `config.js` file where I usually hold the 'debug' function which helps me console.log the Form being sent to the backend for quicker debugging.
 It also holds the 'baseURL' variable which usually is a different endpoint for the backend API (not used here). Typically I don't house the PHP services in the same repo as the front end repo, but for the sake of time - everything is in one repo here.
 
-I created a script "php/create_rows.php" that will iterate 500k times, creating a publisher/name combo and a random rating. It will ignore any duplicate keys when inserting. So I ran it twice to get up to around 525k entries. Since the publisher name has "publisher" in every single one, that was what I initially tested the memory limit on. I searched "publisher", and hit a memory limit issue. I quickly just added an "init_set" option to increase the memory limit, and it was able to load. The datatable easily handled that many entries, and it took around 11 seconds to return 525k results (keep in mind, this is local - so it likely could take longer when hosted on an actual server).
+I created a script `php/create_rows.php` that will iterate 500k times, creating a publisher/name combo and a random rating. It will ignore any duplicate keys when inserting. So I ran it twice to get up to around 525k entries. Since the publisher name has "publisher" in every single one, that was what I initially tested the memory limit on. I searched "publisher", and hit a memory limit issue. I quickly just added an "init_set" option to increase the memory limit, and it was able to load. The datatable easily handled that many entries, and it took around 11 seconds to return 525k results (keep in mind, this is local - so it likely could take longer when hosted on an actual server).
 
 The code base I started out with is a template I normally use, it is a mix of bootstrap and material admin. It initially includes many dependencies for various things to use in the pages. I have tried to strip out much of it, but didn’t want to spend too much time on that. 
 
