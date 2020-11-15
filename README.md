@@ -6,9 +6,13 @@ This is a typical LAMP stack setup.
 I have included a MySQL file to build the database and tables.
 
 There are two tables:
+
 `games`
+
 	This has the fields you requested in the docx. `id`,`publisher`,`name`,`nickname`, and ENUM `rating`. I have included a `created_at` as well, just for general logging.
+	
 `log`
+
 	This table is to help log requests and responses, this is to help in any debugging needs that come along. It holds the uri being requested, the user (usually more useful if there is a login type situation), `ip_address`, `user_agent` (to help me know if it's web, ios, or android hitting the end point), the `request` (this is what is being sent to the service), the response (in the beginning of a new project, I like to save both success and NO responses - but as we get through UAT, I will typically only log failures), and the timestamp.
 
 The repo includes two sample files:
