@@ -37,7 +37,7 @@
 										</div>
 									</div>
 								</div>
-								<button type="button" class="update-timberline ready loading-btn btn btn-info btn-transparent btn-block btn-loading-state" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Loading..." data-complete-text="Timesheets Loaded" data-error-text="Error">Loading...</button>
+								<button type="button" class="update-timberline ready loading-btn btn btn-info btn-transparent btn-block btn-loading-state" data-loading-text="<i class='fa fa-spinner fa-spin'></i> Searching..." data-complete-text="Search Complete" data-error-text="Error">Searching...</button>
 								<div class="tools pull-right">
 									<button class="add-btn btn btn-flat btn-primary grey-border filter-btn" data-toggle="modal" data-target="#addGameModal"><i class="md md-my-library-add"></i> GAME</button>									
 								</div>
@@ -180,6 +180,17 @@
 			        successMessage("Game added.");
 			        // clear form
 			        clearForm();
+
+			        var query = $('#search').val();
+
+							// validate they entered something in the search input
+							if (query.length == 0 || query == ''){
+								return
+							}
+							if (query.length < 3){
+								return;
+							}
+							$('#search-game').trigger('click');
 			      }
 			    })
 				})
@@ -211,11 +222,14 @@
 					form.append('query',query);
 					
 					$('.new-table-container').removeClass('hide');
+					load_btn.button('loading').show();
 					// init ajax call
 					let promise = ajaxCall(form,'search.php');
 			    promise.then(function(data) {
 			      if (data.status == 'NO') { // check for no response
 		          errorMessage(data.content);
+		          load_btn.button('error');
+							hideBtn();
 			      } else {
 			      	// if successful
 			        var dc = data.content;			        
@@ -227,7 +241,7 @@
 								searching:true,
 								// paging:true,
 								deferRender:    true,
-		            scrollY:        200,
+		            scrollY:        '75vh',
 		            scrollCollapse: true,
 		            scroller:       true,
 								columns:[
@@ -268,6 +282,9 @@
 			            });
 				        }
 			        })
+
+			        load_btn.button('complete');
+							hideBtn();
 			      }
 			    })
 				});
