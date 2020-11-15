@@ -13,15 +13,6 @@
 <script type="text/javascript" src="assets/js/libs/jquery-validation/dist/jquery.validate.min.js"></script>
 <script type="text/javascript" src="assets/js/libs/jquery-validation/dist/additional-methods.min.js"></script>
 <script src="js/jscript.js"></script>
-<!-- 
-	<script src="assets/js/core/source/App.js"></script>
-	<script src="assets/js/core/source/AppNavigation.js"></script>
-	<script src="assets/js/core/source/AppOffcanvas.js"></script>
-	<script src="assets/js/core/source/AppCard.js"></script>
-	<script src="assets/js/core/source/AppForm.js"></script>
-	<script src="assets/js/core/source/AppNavSearch.js"></script>
-	<script src="assets/js/core/source/AppVendor.js"></script> 
--->
 <script src="assets/js/libs/select2/select2.min.js"></script>
 <script src="assets/js/libs/toastr/toastr.js"></script>
 

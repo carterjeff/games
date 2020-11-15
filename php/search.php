@@ -12,10 +12,11 @@
 
 	foreach ($params as $key => $value) {
 	  if(!isset($_REQUEST[$value])){
-	    $response['content'] = 'Missing '.$value.' set.';
+	    $response['content'] = 'Missing parameter: '.$value.' not set.';
+	    log_and_respond($response);
 	    echo json_encode($response);exit;
-	    // log_and_respond($response);
 	  }
+	  // clean input for query insert
 	  $_REQUEST[$value] = cleanInput($_REQUEST[$value]);
 	}
 
@@ -25,6 +26,7 @@
 	if (strlen($query) < 2){
 		$response['content'] = $info;
 		$response['status'] = "OK";
+		log_and_respond($response);
 		echo json_encode($response);exit;
 		// log_and_respond($response);
 	}
@@ -34,20 +36,13 @@
   $res = $m->query($sql);  
   while ($e = $res->fetch_assoc()){
   	$e['rating'] = ucwords($e['rating']);
-		// build output array
-  // 	$info[] = array(
-  // 		'id'=>$e['id'],
-		// 	'value'=>$e['id'],
-		// 	'label'=>$e['name'].' ['.$e['publisher'].']',
-		// 	'rating'=>$e['rating'],
-		// 	'nickname'=>$e['nickname'],
-		// );
+		// build output array 
 		$info[] = $e;
-  }
-	
+  }	
 	
 	// output
   $response['status'] = 'OK';
 	$response['content'] = $info;	
+	log_and_respond($response);
 	echo json_encode($response); exit;	 
 ?>
