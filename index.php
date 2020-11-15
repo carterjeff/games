@@ -1,4 +1,7 @@
 <?php
+	/*
+		generic token auth setup
+	*/
 	$token = md5(date("Y-m-d").'games');
 ?>
 <!DOCTYPE html>
@@ -17,12 +20,7 @@
 		<?php	include 'header.php'; ?>
 		<div id="base">
 			<div id="content" class="content">
-				<section>
-					<!-- <div class="section-header">
-						<ol class="breadcrumb">
-							<li class="active">Games!</li>
-						</ol>
-					</div> -->
+				<section>					
 					<div class="section-body">
 						<div class="card timesheet-card">
 							<div class="card-head style-primary card-head-sm">
@@ -187,7 +185,7 @@
 							if (query.length == 0 || query == ''){
 								return
 							}
-							if (query.length < 3){
+							if (query.length < 2){
 								return;
 							}
 							$('#search-game').trigger('click');
@@ -213,9 +211,9 @@
 						return;
 					}
 
-					// limit searches to 3 characters or more - to avoid crazy search results
-					if (query.length < 3){
-						warningMessage('Please search with at least 3 characters');
+					// limit searches to 2 characters or more - to avoid crazy search results
+					if (query.length < 2){
+						warningMessage('Please search with at least 2 characters');
 						return;	
 					}
 					var form = preBuild();
@@ -241,7 +239,7 @@
 								searching:true,
 								// paging:true,
 								deferRender:    true,
-		            scrollY:        '75vh',
+		            scrollY:        '60vh',
 		            scrollCollapse: true,
 		            scroller:       true,
 								columns:[

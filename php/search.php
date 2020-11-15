@@ -2,6 +2,7 @@
 	/**
 	 * Query games from db
 	 */
+	ini_set("memory_limit","500M");
 	include 'connection.php';
 	include 'auth.php';
 	
@@ -13,8 +14,7 @@
 	foreach ($params as $key => $value) {
 	  if(!isset($_REQUEST[$value])){
 	    $response['content'] = 'Missing parameter: '.$value.' not set.';
-	    log_and_respond($response);
-	    echo json_encode($response);exit;
+	    log_and_respond($response);	    
 	  }
 	  // clean input for query insert
 	  $_REQUEST[$value] = cleanInput($_REQUEST[$value]);
@@ -26,9 +26,7 @@
 	if (strlen($query) < 2){
 		$response['content'] = $info;
 		$response['status'] = "OK";
-		log_and_respond($response);
-		echo json_encode($response);exit;
-		// log_and_respond($response);
+		log_and_respond($response);				
 	}
 
 	// query to search through games
@@ -44,5 +42,5 @@
   $response['status'] = 'OK';
 	$response['content'] = $info;	
 	log_and_respond($response);
-	echo json_encode($response); exit;	 
+	// echo json_encode($response); exit;	 
 ?>

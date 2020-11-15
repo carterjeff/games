@@ -78,5 +78,5 @@
 	$response['content'] = 'Game successfully added';
 	$response['status'] = 'OK';
 	log_and_respond($response);
-	echo json_encode($response);
+	// echo json_encode($response);
 ?>

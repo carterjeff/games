@@ -82,6 +82,9 @@ button.btn.btn-icon-toggle.ink-reaction.game-search {
   font-size: 18px;
   width: 40px;
 }
+section {
+  padding-bottom: 2px;
+}
 
 @media (max-width: 768px) {  
   #content{
